@@ -22,7 +22,7 @@ struct TaskCell: View {
                 Spacer()
             }
             Text(retTask.title!)
-                .font(.title)
+                .font(.title3)
                 .backgrounded()
             Spacer()
             HStack {

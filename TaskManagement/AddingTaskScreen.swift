@@ -15,19 +15,22 @@ struct AddingTaskScreen: View {
     var body: some View {
         ZStack {
             VStack {
+                Text("Add A New Task")
+                    .font(.title)
+                    .padding(.top, 60)
                 Spacer()
-                TextField("Title", text: $taskTitle)
+                TextField("Title", text: $taskName)
                     .padding(.horizontal)
                     .frame(width: UIScreen.main.bounds.width / 2,
                            height: 60)
                     .backgrounded()
-                Spacer()
                 TextField("Description",
-                          text: $taskName)
+                          text: $taskTitle)
                     .padding(.horizontal)
                     .frame(width: UIScreen.main.bounds.width / 2,
                            height: 60)
                     .backgrounded()
+                    .padding(.top, 36)
                 Spacer()
                 Button {
                     let dateformater = DateFormatter()
@@ -43,7 +46,7 @@ struct AddingTaskScreen: View {
                         showAddTask = false
                     })
                 } label: {
-                    RoundedRectangle(cornerRadius: 5)
+                    RoundedRectangle(cornerRadius: 10)
                         .frame(width: UIScreen.main.bounds.width / 2,
                                height: 50)
                         .overlay(alignment: .center) {
@@ -55,6 +58,19 @@ struct AddingTaskScreen: View {
             }
         }
         .frame(maxWidth: .infinity)
+        .overlay(alignment: .topLeading) {
+            Button {
+                withAnimation {
+                    showAddTask = false
+                }
+            } label: {
+                Image(systemName: "xmark.circle")
+                    .frame(width: 60,
+                           height: 60)
+                    .padding(.leading, 30)
+                    .padding(.top, 30)
+            }
+        }
         .ignoresSafeArea(.all)
     }
     private func addTask(task: Task,
