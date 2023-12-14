@@ -6,25 +6,84 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct TaskCell: View {
-    var task: Task
+    @Environment(\.managedObjectContext) var context
+    var retTask: Task
+    @State private var thisTask: Task = Task()
     var body: some View {
         VStack {
-            Text(task.name!)
-                
-            Text(task.title!)
             HStack {
-                Text(task.date!.description)
+                Text(retTask.name!)
+                    .font(.headline)
+                    .backgrounded()
+                    .padding(.leading, 32)
                 Spacer()
-                Image(systemName: task.isComleted ? "circle" : "xmark.filled")
             }
+            
+            Text(retTask.title!)
+                .font(.title)
+                .backgrounded()
+            Spacer()
+            HStack {
+                Text(retTask.date!.description)
+                    .font(.footnote)
+                    .backgrounded()
+                Spacer()
+                HStack {
+                    Text("Completed:  ")
+                        .font(.footnote)
+                        .backgrounded()
+                        .padding(.trailing, 10)
+                    ZStack {
+                        Image(systemName: "circlebadge")
+                            .scaleEffect(x: 2.5, y: 2.5)
+                        Image(systemName: !retTask.isComleted ? "" :  "checkmark")
+                    }
+                    .onTapGesture {
+                        if thisTask.isComleted {
+                            updateCompletedTask(task: thisTask,
+                                                isCompleted: false) {
+                            }
+                            thisTask.isComleted = false
+                        } else {
+                            updateCompletedTask(task: thisTask,
+                                                isCompleted: true) {
+                                
+                            }
+                            thisTask.isComleted = true
+                        }
+                    }
+                }
+            }
+        }
+        .onAppear {
+            thisTask = retTask
+        }
+    }
+    private func updateCompletedTask(task: Task,
+                                     isCompleted: Bool,
+                                     completion: @escaping () -> Void) {
+        let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
+        fetchrequest.predicate = NSPredicate(format: "id == %@",
+                                             task.id)
+        if let results = try? context.fetch(fetchrequest),
+            let object = results.first as? NSManagedObject {
+            object.setValue(isCompleted,
+                            forKey: "completed")
+        }
+        do {
+            try context.save()
+            completion()
+        } catch {
+            fatalError()
         }
     }
 }
 
 struct TaskCell_Previews: PreviewProvider {
     static var previews: some View {
-        TaskCell(task: Task())
+        TaskCell(retTask: Task())
     }
 }

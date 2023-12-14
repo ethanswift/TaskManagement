@@ -11,8 +11,15 @@ import CoreData
 struct TasksManagementScreen: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(entity: TaskEntity.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false)]) var allTasks: FetchedResults<TaskEntity>
+                  sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false)]) private var allTasks: FetchedResults<TaskEntity>
+//    @FetchRequest(entity: TaskEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false)], predicate: NSPredicate(format: "completed == %@", true)) private var allCompletedTasks: FetchedResults<TaskEntity>
+    
+    @FetchRequest(entity: TaskEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false)], predicate: NSPredicate(format: "completed == %@", false)) private var allNotCompletedTasks: FetchedResults<TaskEntity>
+    
+    @FetchRequest(entity: TaskEntity.entity(), sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false)], predicate: NSPredicate(format: "completed == %@", true)) private var allCompletedTasks: FetchedResults<TaskEntity>
+    
     @State private var showAddTask: Bool = false
+    @State private var showCompletedTasks: Bool = false
     @State private var taskName: String = ""
     @State private var taskTitle: String = ""
     var body: some View {
@@ -20,70 +27,15 @@ struct TasksManagementScreen: View {
             VStack {
                 List {
                     ForEach(allTasks) { retTask in
+                        let newTask = Task(id: retTask.id!,
+                                           name: retTask.name,
+                                           title: retTask.title,
+                                           date: retTask.date,
+                                           isComleted: retTask.completed)
                         NavigationLink {
-                            VStack {
-                                Spacer()
-                                Text(retTask.name!)
-                                  Spacer()
-                                Text(retTask.title!)
-                                Spacer()
-                                HStack {
-                                    Text(retTask.date!.description)
-                                    Spacer()
-                                    HStack {
-                                        Text("Completed:  ")
-                                            .padding(.trailing, 10)
-                                        ZStack {
-                                            Image(systemName: "circlebadge")
-                                                .scaleEffect(x: 2.5, y: 2.5)
-                                            Image(systemName: !retTask.completed ? "" :  "checkmark")
-                                        }
-                                        .onTapGesture {
-                                            let thisTask = Task(id: retTask.id!, name: retTask.name, title: retTask.title, date: retTask.date, isComleted: retTask.completed)
-                                            if retTask.completed {
-                                                updateCompletedTask(task: thisTask, isCompleted: false) {
-                                                }
-                                            } else {
-                                                updateCompletedTask(task: thisTask, isCompleted: true) {
-                                                    
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                                Spacer()
-                            }
-                            .padding(.horizontal, 48)
+                            TaskView(retTask: newTask)
                         } label: {
-                            VStack {
-                                Text(retTask.name!)
-                                    
-                                Text(retTask.title!)
-                                HStack {
-                                    Text(retTask.date!.description)
-                                    Spacer()
-                                    HStack {
-                                        Text("Completed:  ")
-                                            .padding(.trailing, 10)
-                                        ZStack {
-                                            Image(systemName: "circlebadge")
-                                                .scaleEffect(x: 2.5, y: 2.5)
-                                            Image(systemName: !retTask.completed ? "" :  "checkmark")
-                                        }
-                                        .onTapGesture {
-                                            let thisTask = Task(id: retTask.id!, name: retTask.name, title: retTask.title, date: retTask.date, isComleted: retTask.completed)
-                                            if retTask.completed {
-                                                updateCompletedTask(task: thisTask, isCompleted: false) {
-                                                }
-                                            } else {
-                                                updateCompletedTask(task: thisTask, isCompleted: true) {
-                                                    
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
+                            TaskCell(retTask: newTask)
                         }
                     }.onDelete(perform: removeTaskAt)
                 }
@@ -99,6 +51,25 @@ struct TasksManagementScreen: View {
                             Image(systemName: "plus.circle")
                         }
                     }
+                    ToolbarItem(placement: .automatic) {
+                        Menu {
+                            Button {
+                                // show
+                            } label: {
+                                Label("Show Completed Tasks", image: "circle.grid.3x3.fill")
+                            }
+                            Button {
+                                
+                            } label: {
+                                Label("Show UnCompleted Tasks", image: "circle.grid.3x3.fill")
+                            }
+
+                            
+                        } label: {
+                            Image(systemName: "circle.grid.3x3.fill")
+                        }
+
+                    }
                 })
                 .listStyle(PlainListStyle())
                 .fullScreenCover(isPresented: $showAddTask) {
@@ -108,23 +79,24 @@ struct TasksManagementScreen: View {
                             TextField("Title", text: $taskTitle)
                                 .frame(width: UIScreen.main.bounds.width / 2,
                                        height: 100)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10).fill(Color.blue.opacity(0.3))
-                                    )
+                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.blue.opacity(0.3)))
                             Spacer()
                             TextField("Description", text: $taskName)
                                 .frame(width: UIScreen.main.bounds.width / 2,
                                        height: 100)
-                                .background(
-                                    RoundedRectangle(cornerRadius: 10).fill(Color.blue.opacity(0.3))
-                                    )
+                                .background(RoundedRectangle(cornerRadius: 10).fill(Color.blue.opacity(0.3)))
                             Spacer()
                             Button {
-                                var dateformater = DateFormatter()
+                                let dateformater = DateFormatter()
                                 dateformater.dateStyle = .short
                                 let newDate = dateformater.string(from: Date())
-                                let newTask = Task(id: UUID().uuidString, name: taskName, title: taskTitle, date: newDate, isComleted: false)
-                                self.addTask(task: newTask, completion: {
+                                let newTask = Task(id: UUID().uuidString,
+                                                   name: taskName,
+                                                   title: taskTitle,
+                                                   date: newDate,
+                                                   isComleted: false)
+                                self.addTask(task: newTask,
+                                             completion: {
                                     showAddTask = false
                                 })
                             } label: {
@@ -138,7 +110,6 @@ struct TasksManagementScreen: View {
                             }
                             Spacer()
                         }
-                        
                     }
                     .frame(maxWidth: .infinity)
                     .ignoresSafeArea(.all)
@@ -149,19 +120,15 @@ struct TasksManagementScreen: View {
                             }
                         } label: {
                             Image(systemName: "xmark")
-                                .frame(width: 40, height: 40)
+                                .frame(width: 40,
+                                       height: 40)
                                 .padding(.trailing, 50)
                         }
-
-                        
                     }
                 }
             }
         }
     }
-    
-//    private func move(from source: IndexSet, to destination: Int) {
-//    }
     
     private func removeTaskAt(offset: IndexSet) {
         for index in offset {
@@ -176,8 +143,8 @@ struct TasksManagementScreen: View {
         }
     }
     
-    private func addTask(task: Task, completion: @escaping () -> Void) {
-        print(task)
+    private func addTask(task: Task,
+                         completion: @escaping () -> Void) {
         let newTask = TaskEntity(context: context)
         newTask.id = UUID().uuidString
         newTask.name = task.name
@@ -193,7 +160,9 @@ struct TasksManagementScreen: View {
         }
     }
     
-    private func updateCompletedTask(task: Task, isCompleted: Bool, completion: @escaping () -> Void) {
+    private func updateCompletedTask(task: Task,
+                                     isCompleted: Bool,
+                                     completion: @escaping () -> Void) {
         let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
         fetchrequest.predicate = NSPredicate(format: "id == %@", task.id)
         if let results = try? context.fetch(fetchrequest),
@@ -212,18 +181,16 @@ struct TasksManagementScreen: View {
     private func removeTask(task: Task) {
         let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
         fetchrequest.predicate = NSPredicate(format: "id == %@", task.id)
-        if let results = try? context.fetch(fetchrequest), let object = results.first as? NSManagedObject {
+        if let results = try? context.fetch(fetchrequest),
+            let object = results.first as? NSManagedObject {
             context.delete(object)
         }
-        
         do {
             try context.save()
         } catch {
             fatalError()
         }
     }
-    
-    
 }
 
 struct TasksManagementScreen_Previews: PreviewProvider {
