@@ -8,7 +8,6 @@
 import SwiftUI
 import CoreData
 
-
 struct TaskView: View {
     @Environment(\.managedObjectContext) var context
     @Environment(\.presentationMode) var presentationMode

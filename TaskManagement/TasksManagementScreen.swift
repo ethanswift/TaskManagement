@@ -102,7 +102,6 @@ struct TasksManagementScreen: View {
             }
         }
     }
-    
     private func removeTaskAt(offset: IndexSet) {
         for index in offset {
             let task = allTasks[index]
@@ -115,7 +114,6 @@ struct TasksManagementScreen: View {
             fatalError()
         }
     }
-        
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
                                      completion: @escaping () -> Void) {
@@ -133,20 +131,6 @@ struct TasksManagementScreen: View {
             fatalError()
         }
     }
-    
-//    private func removeTask(task: Task) {
-//        let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
-//        fetchrequest.predicate = NSPredicate(format: "id == %@", task.id)
-//        if let results = try? context.fetch(fetchrequest),
-//            let object = results.first as? NSManagedObject {
-//            context.delete(object)
-//        }
-//        do {
-//            try context.save()
-//        } catch {
-//            fatalError()
-//        }
-//    }
 }
 
 struct TasksManagementScreen_Previews: PreviewProvider {

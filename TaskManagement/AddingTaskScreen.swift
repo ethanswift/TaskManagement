@@ -9,11 +9,9 @@ import SwiftUI
 
 struct AddingTaskScreen: View {
     @Binding var showAddTask: Bool
-    
     @Environment(\.managedObjectContext) var context
     @State private var taskName: String = ""
     @State private var taskTitle: String = ""
-
     var body: some View {
         ZStack {
             VStack {
@@ -58,8 +56,6 @@ struct AddingTaskScreen: View {
         }
         .frame(maxWidth: .infinity)
         .ignoresSafeArea(.all)
-        
-
     }
     private func addTask(task: Task,
                          completion: @escaping () -> Void) {
