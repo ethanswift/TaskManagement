@@ -20,7 +20,7 @@ struct TasksManagementScreen: View {
             VStack {
                 List {
                     ForEach(allTasks) { retTask in
-                        if showCompletedTasks == true && retTask.completed == true {
+                        if showCompletedTasks && retTask.completed {
                             let newTask = Task(id: retTask.id!,
                                                name: retTask.name,
                                                title: retTask.title,
@@ -28,10 +28,8 @@ struct TasksManagementScreen: View {
                                                isComleted: retTask.completed)
                             NavigationLink {
                                 TaskView(retTask: newTask)
-                            } label: {
-                                TaskCell(retTask: newTask)
-                            }
-                        } else if showNotCompletedTasks == true && retTask.completed == false {
+                            } label: { TaskCell(retTask: newTask) }
+                        } else if showNotCompletedTasks && !retTask.completed {
                             let newTask = Task(id: retTask.id!,
                                                name: retTask.name,
                                                title: retTask.title,
@@ -39,10 +37,8 @@ struct TasksManagementScreen: View {
                                                isComleted: retTask.completed)
                             NavigationLink {
                                 TaskView(retTask: newTask)
-                            } label: {
-                                TaskCell(retTask: newTask)
-                            }
-                        } else if showCompletedTasks == false && showNotCompletedTasks == false {
+                            } label: { TaskCell(retTask: newTask) }
+                        } else if !showCompletedTasks && !showNotCompletedTasks {
                             let newTask = Task(id: retTask.id!,
                                                name: retTask.name,
                                                title: retTask.title,
@@ -50,9 +46,7 @@ struct TasksManagementScreen: View {
                                                isComleted: retTask.completed)
                             NavigationLink {
                                 TaskView(retTask: newTask)
-                            } label: {
-                                TaskCell(retTask: newTask)
-                            }
+                            } label: { TaskCell(retTask: newTask) }
                         }
                     }.onDelete(perform: removeTaskAt)
                 }
@@ -60,11 +54,7 @@ struct TasksManagementScreen: View {
                 .listStyle(.plain)
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarTrailing) {
-                        Button {
-                            withAnimation {
-                                showAddTask = true
-                            }
-                        } label: {
+                        Button { showAddTask = true} label: {
                             Image(systemName: "plus.circle")
                         }
                     }
@@ -73,26 +63,16 @@ struct TasksManagementScreen: View {
                             Button {
                                 showCompletedTasks = true
                                 showNotCompletedTasks = false
-                            } label: {
-                                Label("Show Completed Tasks",
-                                      image: "circle.grid.3x3.fill")
-                            }
+                            } label: { Text("Completed Tasks")}
                             Button {
                                 showNotCompletedTasks = true
                                 showCompletedTasks = false
-                            } label: {
-                                Label("Show UnCompleted Tasks", image: "circle.grid.3x3.fill")
-                            }
+                            } label: { Text("Uncompleted Tasks") }
                             Button {
                                 showCompletedTasks = false
                                 showNotCompletedTasks = false
-                            } label: {
-                                Label("Show All Tasks",
-                                      image: "circle.grid.3x3.fill")
-                            }
-                        } label: {
-                            Image(systemName: "circle.grid.3x3.fill")
-                        }
+                            } label: { Text("All Tasks") }
+                        } label: { Image(systemName: "circle.grid.3x3.fill")}
                     }
                 })
                 .listStyle(PlainListStyle())
@@ -107,12 +87,7 @@ struct TasksManagementScreen: View {
             let task = allTasks[index]
             context.delete(task)
         }
-        do {
-            try context.save()
-        
-        } catch {
-            fatalError()
-        }
+        save()
     }
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
@@ -124,9 +99,12 @@ struct TasksManagementScreen: View {
             object.setValue(isCompleted,
                             forKey: "completed")
         }
+        save()
+        completion()
+    }
+    private func save() {
         do {
             try context.save()
-            completion()
         } catch {
             fatalError()
         }

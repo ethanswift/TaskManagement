@@ -15,5 +15,44 @@ extension View {
                 .fill(Color.gray.opacity(0.2))
         }
     }
+    
+//    func makeToolBars() -> ToolbarContent {
+//        ToolbarItem(placement: .navigationBarTrailing) {
+//            Button {
+//                withAnimation {
+//                    showAddTask = true
+//                }
+//            } label: {
+//                Image(systemName: "plus.circle")
+//            }
+//        }
+//        ToolbarItem(placement: .automatic) {
+//            Menu {
+//                Button {
+//                    showCompletedTasks = true
+//                    showNotCompletedTasks = false
+//                } label: {
+//                    Label("Completed Tasks",
+//                          image: "circle.grid.3x3.fill")
+//                }
+//                Button {
+//                    showNotCompletedTasks = true
+//                    showCompletedTasks = false
+//                } label: {
+//                    Label("Uncompleted Tasks",
+//                          image: "circle.grid.3x3.fill")
+//                }
+//                Button {
+//                    showCompletedTasks = false
+//                    showNotCompletedTasks = false
+//                } label: {
+//                    Label("All Tasks",
+//                          image: "circle.grid.3x3.fill")
+//                }
+//            } label: {
+//                Image(systemName: "circle.grid.3x3.fill")
+//            }
+//        }
+//    }
 }
 
