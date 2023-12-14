@@ -103,15 +103,22 @@ struct TasksManagementScreen: View {
                 .listStyle(PlainListStyle())
                 .fullScreenCover(isPresented: $showAddTask) {
                     ZStack {
-                        Color.blue.opacity(0.4).ignoresSafeArea(.all)
                         VStack {
+                            Spacer()
                             TextField("Title", text: $taskTitle)
                                 .frame(width: UIScreen.main.bounds.width / 2,
                                        height: 100)
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10).fill(Color.blue.opacity(0.3))
+                                    )
+                            Spacer()
                             TextField("Description", text: $taskName)
                                 .frame(width: UIScreen.main.bounds.width / 2,
                                        height: 100)
-                            
+                                .background(
+                                    RoundedRectangle(cornerRadius: 10).fill(Color.blue.opacity(0.3))
+                                    )
+                            Spacer()
                             Button {
                                 var dateformater = DateFormatter()
                                 dateformater.dateStyle = .short
@@ -123,12 +130,30 @@ struct TasksManagementScreen: View {
                             } label: {
                                 RoundedRectangle(cornerRadius: 5)
                                     .frame(width: UIScreen.main.bounds.width / 2,
-                                           height: 100)
+                                           height: 50)
                                     .overlay(alignment: .center) {
                                         Text("Add New Task")
+                                            .foregroundColor(.white)
                                     }
                             }
+                            Spacer()
                         }
+                        
+                    }
+                    .frame(maxWidth: .infinity)
+                    .ignoresSafeArea(.all)
+                    .overlay(alignment: .topLeading) {
+                        Button {
+                            withAnimation {
+                                showAddTask = false
+                            }
+                        } label: {
+                            Image(systemName: "xmark")
+                                .frame(width: 40, height: 40)
+                                .padding(.trailing, 50)
+                        }
+
+                        
                     }
                 }
             }
