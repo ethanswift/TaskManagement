@@ -17,13 +17,19 @@ struct TaskCell: View {
             HStack {
                 Text(retTask.name!)
                     .font(.headline)
+                    .lineLimit(1)
                     .backgrounded()
                     .padding(.leading, 32)
                 Spacer()
             }
-            Text(retTask.title!)
-                .font(.title3)
-                .backgrounded()
+            HStack {
+                Text(retTask.title!)
+                    .font(.title3)
+                    .lineLimit(2)
+                    .backgrounded()
+                    .padding(.leading, 32)
+                Spacer()
+            }
             Spacer()
             HStack {
                 Text(retTask.date!.description)
