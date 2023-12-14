@@ -13,7 +13,7 @@ struct TaskManagementApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TasksManagementScreen()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
