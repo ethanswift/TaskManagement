@@ -71,13 +71,10 @@
 			children = (
 				C0965A2A2B2AEF83009BCE43 /* TaskManagementApp.swift */,
 				C0965A2C2B2AEF83009BCE43 /* ContentView.swift */,
-				C0965A412B2AF51B009BCE43 /* TasksManagementScreen.swift */,
-				C07BB3DC2B2B58F700D839B8 /* AddingTaskScreen.swift */,
-				C07BB3D72B2B452B00D839B8 /* TaskView.swift */,
-				C07BB3DA2B2B56B700D839B8 /* Extension+View.swift */,
-				C0965A3D2B2AEF9F009BCE43 /* Task.swift */,
-				C0965A452B2AF7F5009BCE43 /* TaskCell.swift */,
-				C0965A472B2AF977009BCE43 /* CoreDataManager.swift */,
+				C0EEC3872B2B7B46006FD585 /* Views */,
+				C0EEC3862B2B7B13006FD585 /* Extensions&Helpers */,
+				C0EEC3882B2B7B55006FD585 /* Models */,
+				C0EEC3892B2B7B5D006FD585 /* ViewModels */,
 				C0965A2E2B2AEF86009BCE43 /* Assets.xcassets */,
 				C0965A332B2AEF86009BCE43 /* Persistence.swift */,
 				C0965A352B2AEF86009BCE43 /* TaskManagement.xcdatamodeld */,
@@ -92,6 +89,41 @@
 				C0965A312B2AEF86009BCE43 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		C0EEC3862B2B7B13006FD585 /* Extensions&Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C07BB3DA2B2B56B700D839B8 /* Extension+View.swift */,
+			);
+			path = "Extensions&Helpers";
+			sourceTree = "<group>";
+		};
+		C0EEC3872B2B7B46006FD585 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C0965A412B2AF51B009BCE43 /* TasksManagementScreen.swift */,
+				C07BB3DC2B2B58F700D839B8 /* AddingTaskScreen.swift */,
+				C07BB3D72B2B452B00D839B8 /* TaskView.swift */,
+				C0965A452B2AF7F5009BCE43 /* TaskCell.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C0EEC3882B2B7B55006FD585 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C0965A3D2B2AEF9F009BCE43 /* Task.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C0EEC3892B2B7B5D006FD585 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C0965A472B2AF977009BCE43 /* CoreDataManager.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
