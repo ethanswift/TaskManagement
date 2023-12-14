@@ -11,6 +11,7 @@ import CoreData
 
 struct TaskView: View {
     @Environment(\.managedObjectContext) var context
+    @Environment(\.presentationMode) var presentationMode
     var retTask: Task
     @State private var thisTask: Task = Task()
     var body: some View {
@@ -44,7 +45,6 @@ struct TaskView: View {
                         } else {
                             updateCompletedTask(task: thisTask,
                                                 isCompleted: true) {
-                                
                             }
                             thisTask.isComleted = true
                         }
@@ -53,9 +53,18 @@ struct TaskView: View {
             }
             Spacer()
         }
-        .overlay(alignment: .topLeading, content: {
-            
-        })
+        .overlay(alignment: .topLeading) {
+            Button {
+                withAnimation {
+                    presentationMode.wrappedValue.dismiss()
+                }
+            } label: {
+                Image(systemName: "xmark.circle")
+                    .frame(width: 40,
+                           height: 40)
+                    .padding(.trailing, 50)
+            }
+        }
         .navigationTitle("")
         .navigationBarHidden(true)
         .padding(.horizontal, 48)

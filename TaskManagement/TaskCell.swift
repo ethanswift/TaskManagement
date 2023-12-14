@@ -21,7 +21,6 @@ struct TaskCell: View {
                     .padding(.leading, 32)
                 Spacer()
             }
-            
             Text(retTask.title!)
                 .font(.title)
                 .backgrounded()
@@ -32,7 +31,7 @@ struct TaskCell: View {
                     .backgrounded()
                 Spacer()
                 HStack {
-                    Text("Completed:  ")
+                    Text("Completed:")
                         .font(.footnote)
                         .backgrounded()
                         .padding(.trailing, 10)
@@ -45,14 +44,13 @@ struct TaskCell: View {
                         if thisTask.isComleted {
                             updateCompletedTask(task: thisTask,
                                                 isCompleted: false) {
+                                thisTask.isComleted = false
                             }
-                            thisTask.isComleted = false
                         } else {
                             updateCompletedTask(task: thisTask,
                                                 isCompleted: true) {
-                                
+                                thisTask.isComleted = true
                             }
-                            thisTask.isComleted = true
                         }
                     }
                 }
