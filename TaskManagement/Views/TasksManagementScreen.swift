@@ -104,19 +104,6 @@ struct TasksManagementScreen: View {
         }
         saveThis()
     }
-    private func updateCompletedTask(task: Task,
-                                     isCompleted: Bool,
-                                     completion: @escaping () -> Void) {
-        let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
-        fetchrequest.predicate = NSPredicate(format: "id == %@", task.id)
-        if let results = try? context.fetch(fetchrequest),
-            let object = results.first as? NSManagedObject {
-            object.setValue(isCompleted,
-                            forKey: "completed")
-        }
-        saveThis()
-        completion()
-    }
     private func saveThis() {
         do {
             try context.save()
