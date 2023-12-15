@@ -17,9 +17,11 @@ struct TaskView: View {
         VStack {
             Spacer()
             Text(retTask.name!)
+                .lineLimit(1)
                 .backgrounded()
             Spacer()
             Text(retTask.title!)
+                .lineLimit(3)
                 .backgrounded()
             Spacer()
             HStack {
