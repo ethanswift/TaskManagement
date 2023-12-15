@@ -73,7 +73,7 @@ struct TasksManagementScreen: View {
                                 showCompletedTasks = false
                                 showNotCompletedTasks = false
                             } label: { Text("All Tasks") }
-                        } label: { Image(systemName: "circle.grid.3x3.fill") }
+                        } label: { Image(systemName: "line.3.horizontal.decrease") }
                     }
                 })
                 .listStyle(PlainListStyle())
@@ -83,6 +83,9 @@ struct TasksManagementScreen: View {
             }
         }
     }
+}
+
+extension TasksManagementScreen {
     private func move(from oldIndex: IndexSet,
                       to newIndex: Int) {
         context.perform {

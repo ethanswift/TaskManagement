@@ -65,6 +65,9 @@ struct TaskCell: View {
         .background(content: { Color.blue.opacity(0.2) })
         .onAppear { thisTask = retTask }
     }
+}
+
+extension TaskCell {
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
                                      completion: @escaping () -> Void) {

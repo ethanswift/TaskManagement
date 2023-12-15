@@ -68,6 +68,9 @@ struct TaskView: View {
         .padding(.horizontal, 48)
         .onAppear { thisTask = retTask }
     }
+}
+
+extension TaskView {
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
                                      completion: @escaping () -> Void) {

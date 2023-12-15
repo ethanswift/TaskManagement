@@ -69,6 +69,9 @@ struct AddingTaskScreen: View {
         }
         .ignoresSafeArea(.all)
     }
+}
+
+extension AddingTaskScreen {
     private func addTask(task: Task,
                          completion: @escaping () -> Void) {
         let newTask = TaskEntity(context: context)
