@@ -80,9 +80,7 @@ struct AddingTaskScreen: View {
         do {
             try context.save()
             completion()
-        } catch {
-            fatalError()
-        }
+        } catch { fatalError() }
     }
 }
 

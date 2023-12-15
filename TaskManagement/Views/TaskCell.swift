@@ -45,7 +45,7 @@ struct TaskCell: View {
                         Image(systemName: "circlebadge")
                             .scaleEffect(x: 2.5, y: 2.5)
                         Image(systemName: !retTask.isComleted ? "" :  "checkmark")
-                    }
+                    }.padding(.trailing, 10).padding(.bottom, 5)
                     .onTapGesture {
                         if thisTask.isComleted {
                             updateCompletedTask(task: thisTask,
@@ -62,6 +62,7 @@ struct TaskCell: View {
                 }
             }
         }
+        .background(content: { Color.blue.opacity(0.2) })
         .onAppear { thisTask = retTask }
     }
     private func updateCompletedTask(task: Task,
@@ -78,9 +79,7 @@ struct TaskCell: View {
         do {
             try context.save()
             completion()
-        } catch {
-            fatalError()
-        }
+        } catch { fatalError() }
     }
 }
 

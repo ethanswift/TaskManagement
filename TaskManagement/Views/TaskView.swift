@@ -35,7 +35,7 @@ struct TaskView: View {
                     ZStack {
                         Image(systemName: "circlebadge")
                             .scaleEffect(x: 2.5, y: 2.5)
-                        Image(systemName: !thisTask.isComleted ? "" :  "checkmark")
+                        Image(systemName: !thisTask.isComleted ? "" : "checkmark")
                     }
                     .onTapGesture {
                         if thisTask.isComleted {
@@ -82,9 +82,7 @@ struct TaskView: View {
         do {
             try context.save()
             completion()
-        } catch {
-            fatalError()
-        }
+        } catch { fatalError() }
     }
 }
 

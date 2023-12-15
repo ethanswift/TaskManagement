@@ -107,9 +107,7 @@ struct TasksManagementScreen: View {
     private func saveThis() {
         do {
             try context.save()
-        } catch {
-            fatalError()
-        }
+        } catch { fatalError() }
     }
 }
 
