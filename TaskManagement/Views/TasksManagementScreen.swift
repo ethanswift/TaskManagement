@@ -63,9 +63,15 @@ struct TasksManagementScreen: View {
 extension TasksManagementScreen {
     //MARK: - View Variables & Funcs
     private func navigationLinks(newTask: Task) -> some View {
-        NavigationLink {
-            TaskView(retTask: newTask)
-        } label: { TaskCell(retTask: newTask) }
+        TaskCell(retTask: newTask)
+            .listRowSeparator(.hidden)
+            .overlay {
+                NavigationLink { TaskView(retTask: newTask)
+                } label: { EmptyView() }.hidden()
+            }
+//        NavigationLink {
+//            TaskView(retTask: newTask)
+//        } label: { TaskCell(retTask: newTask) }
     }
     var addBtn: some View {
         Button { showAddTask = true} label: {

@@ -33,7 +33,11 @@ struct AddingTaskScreen: View {
                     .backgrounded()
                     .padding(.top, 36)
                 Spacer()
-                Button { addNewTask()
+                Button {
+                    addNewTask {
+                    showAddTask = false
+                }
+                    showAddTask = false
                 } label: { addNewTaskBtn }
                 Spacer()
             }
@@ -68,7 +72,7 @@ extension AddingTaskScreen {
         }
     }
     //MARK: - Core Date & List Helper Methods
-    private func addNewTask() {
+    private func addNewTask(completion: @escaping () -> Void) {
         let dateformater = DateFormatter()
         dateformater.dateStyle = .short
         let newDate = dateformater.string(from: Date())
@@ -79,7 +83,9 @@ extension AddingTaskScreen {
                            isComleted: false)
         let cdMng = CoreDataManager(context: context)
         cdMng.addTask(task: newTask,
-                     completion: { showAddTask = false })
+                     completion: {
+             })
+        completion()
     }
 }
 
