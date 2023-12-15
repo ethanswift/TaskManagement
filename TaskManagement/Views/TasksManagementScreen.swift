@@ -98,22 +98,16 @@ extension TasksManagementScreen {
     //MARK: - Core Date & List Helper Methods
     private func move(from oldIndex: IndexSet,
                       to newIndex: Int) {
-//        context.perform {
             var revisedItems: [TaskEntity] = allTasks.map({ $0 })
-        print(revisedItems)
             revisedItems.move(fromOffsets: oldIndex,
                               toOffset: newIndex)
-        print("new", revisedItems)
             for reverseIndex in stride(from: revisedItems.count - 1,
                                        through: 0,
                                        by: -1) {
                 revisedItems[reverseIndex].id = String(Int16(exactly: reverseIndex)!)
-                print(revisedItems[reverseIndex].id)
                 let cdMng = CoreDataManager(context: context)
                 cdMng.saveThis()
             }
-//            try? context.save()
-//        }
     }
     private func removeTaskAt(offset: IndexSet) {
         for index in offset {
