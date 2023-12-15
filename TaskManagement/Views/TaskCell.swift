@@ -16,17 +16,13 @@ struct TaskCell: View {
         VStack {
             HStack {
                 Text(retTask.name!)
-                    .font(.headline)
-                    .lineLimit(1)
-                    .backgrounded()
+                    .mFont(font: .headline, nLine: 1)
                     .padding(.leading, 32)
                 Spacer()
             }
             HStack {
                 Text(retTask.title!)
-                    .font(.title3)
-                    .lineLimit(2)
-                    .backgrounded()
+                    .mFont(font: .title3, nLine: 3)
                     .padding(.leading, 32)
                 Spacer()
             }
@@ -43,13 +39,11 @@ extension TaskCell {
     var dateComBars: some View {
         HStack {
             Text(retTask.date!.description)
-                .font(.footnote)
-                .backgrounded()
+                .mFont(font: .footnote, nLine: 1)
             Spacer()
             HStack {
                 Text("Completed:")
-                    .font(.footnote)
-                    .backgrounded()
+                    .mFont(font: .footnote, nLine: 1)
                     .padding(.trailing, 10)
                 ZStack {
                     Image(systemName: "circlebadge")

@@ -52,7 +52,7 @@ extension AddingTaskScreen {
     //MARK: - View Variables & Funcs
     var addNewTaskBtn: some View {
         RoundedRectangle(cornerRadius: 10)
-            .frame(width: UIScreen.main.bounds.width / 2,
+            .frame(width: Cons.sW / 2,
                    height: 50)
             .overlay(alignment: .center) {
                 Text("Add New Task")

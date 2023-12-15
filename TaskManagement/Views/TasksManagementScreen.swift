@@ -66,11 +66,11 @@ extension TasksManagementScreen {
     //MARK: - View Variables & Funcs
     private func navigationLinks(newTask: Task) -> some View {
         TaskCell(retTask: newTask)
-            .listRowSeparator(.hidden)
             .overlay {
                 NavigationLink { TaskView(retTask: newTask)
-                } label: { EmptyView() }.hidden()
+                } label: { EmptyView() }.opacity(0.0)
             }
+            .listRowSeparator(.hidden)
     }
     var addBtn: some View {
         Button { showAddTask = true} label: {

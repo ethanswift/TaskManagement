@@ -17,16 +17,14 @@ struct TaskView: View {
         VStack {
             Spacer()
             Text(retTask.name!)
-                .lineLimit(1)
-                .backgrounded()
+                .mFont(font: .title2, nLine: 1)
             Spacer()
             Text(retTask.title!)
-                .lineLimit(3)
-                .backgrounded()
+                .mFont(font: .body, nLine: 3)
             Spacer()
             HStack {
                 Text(retTask.date!.description)
-                    .backgrounded()
+                    .mFont(font: .footnote, nLine: 1)
                 Spacer()
                 dateComBar
             }
@@ -45,7 +43,7 @@ extension TaskView {
     var dateComBar: some View {
         HStack {
             Text("Completed:")
-                .backgrounded()
+                .mFont(font: .footnote, nLine: 1)
                 .padding(.trailing, 8)
             ZStack {
                 Image(systemName: "circlebadge")

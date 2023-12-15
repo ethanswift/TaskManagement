@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		C021E1CD2B2C656D002B331E /* Cons.swift in Sources */ = {isa = PBXBuildFile; fileRef = C021E1CC2B2C656D002B331E /* Cons.swift */; };
+		C05B36B82B2CD107006A4B19 /* Extension+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05B36B72B2CD107006A4B19 /* Extension+Text.swift */; };
 		C07BB3D82B2B452B00D839B8 /* TaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07BB3D72B2B452B00D839B8 /* TaskView.swift */; };
 		C07BB3DB2B2B56B700D839B8 /* Extension+View.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07BB3DA2B2B56B700D839B8 /* Extension+View.swift */; };
 		C07BB3DD2B2B58F700D839B8 /* AddingTaskScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07BB3DC2B2B58F700D839B8 /* AddingTaskScreen.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		C021E1CC2B2C656D002B331E /* Cons.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cons.swift; sourceTree = "<group>"; };
+		C05B36B72B2CD107006A4B19 /* Extension+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+Text.swift"; sourceTree = "<group>"; };
 		C07BB3D72B2B452B00D839B8 /* TaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskView.swift; sourceTree = "<group>"; };
 		C07BB3DA2B2B56B700D839B8 /* Extension+View.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+View.swift"; sourceTree = "<group>"; };
 		C07BB3DC2B2B58F700D839B8 /* AddingTaskScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddingTaskScreen.swift; sourceTree = "<group>"; };
@@ -102,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				C07BB3DA2B2B56B700D839B8 /* Extension+View.swift */,
+				C05B36B72B2CD107006A4B19 /* Extension+Text.swift */,
 				C021E1CC2B2C656D002B331E /* Cons.swift */,
 			);
 			path = "Extensions&Helpers";
@@ -212,6 +215,7 @@
 				C07BB3DD2B2B58F700D839B8 /* AddingTaskScreen.swift in Sources */,
 				C0965A2B2B2AEF83009BCE43 /* TaskManagementApp.swift in Sources */,
 				C0965A372B2AEF86009BCE43 /* TaskManagement.xcdatamodeld in Sources */,
+				C05B36B82B2CD107006A4B19 /* Extension+Text.swift in Sources */,
 				C0965A462B2AF7F5009BCE43 /* TaskCell.swift in Sources */,
 				C0965A482B2AF977009BCE43 /* CoreDataManager.swift in Sources */,
 				C0965A422B2AF51B009BCE43 /* TasksManagementScreen.swift in Sources */,
