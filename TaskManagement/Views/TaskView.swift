@@ -52,18 +52,16 @@ extension TaskView {
                     .scaleEffect(x: 2.5, y: 2.5)
                 Image(systemName: !thisTask.isComleted ? "" : "checkmark")
             }
-            .onTapGesture {
-                updateComplete()
-            }
-
+            .onTapGesture {updateComplete()}
         }
     }
     var exitBtn: some View {
         Button { withAnimation { presentationMode.wrappedValue.dismiss() }
         } label: {
             Image(systemName: "xmark.circle")
-                .frame(width: 40,
-                       height: 40)
+                .resizable()
+                .frame(width: 25,
+                       height: 25)
                 .padding(.trailing, 50)
         }
 
