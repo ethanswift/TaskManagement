@@ -15,5 +15,8 @@ extension View {
                 .fill(Color.gray.opacity(0.2))
         }
     }
+    func mTxtFld(height: CGFloat) -> some View {
+        self.frame(width: Cons.sW / 2, height: height).backgrounded()
+    }
 }
 

@@ -22,15 +22,11 @@ struct AddingTaskScreen: View {
                 TextField("Title",
                           text: $taskName)
                     .padding(.horizontal)
-                    .frame(width: Cons.sW / 2,
-                           height: 60)
-                    .backgrounded()
+                    .mTxtFld(height: 60)
                 TextField("Description",
                           text: $taskTitle)
                     .padding(.horizontal)
-                    .frame(width: Cons.sW / 2,
-                           height: 60)
-                    .backgrounded()
+                    .mTxtFld(height: 60)
                     .padding(.top, 36)
                 Spacer()
                 Button {
