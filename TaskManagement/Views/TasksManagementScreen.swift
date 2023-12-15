@@ -11,8 +11,8 @@ import CoreData
 struct TasksManagementScreen: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(entity: TaskEntity.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false),
-                                    NSSortDescriptor(keyPath: \TaskEntity.id, ascending: true)]) private var allTasks: FetchedResults<TaskEntity>
+                  sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.id, ascending: true),
+                                    NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false)]) private var allTasks: FetchedResults<TaskEntity>
     @State private var showAddTask: Bool = false
     @State private var showCompletedTasks: Bool = false
     @State private var showNotCompletedTasks: Bool = false
