@@ -49,6 +49,7 @@ struct TasksManagementScreen: View {
                             } label: { TaskCell(retTask: newTask) }
                         }
                     }.onDelete(perform: removeTaskAt)
+                        .onMove(perform: move)
                 }
                 .navigationBarTitle("To Do Tasks")
                 .listStyle(.plain)
@@ -63,7 +64,7 @@ struct TasksManagementScreen: View {
                             Button {
                                 showCompletedTasks = true
                                 showNotCompletedTasks = false
-                            } label: { Text("Completed Tasks")}
+                            } label: { Text("Completed Tasks") }
                             Button {
                                 showNotCompletedTasks = true
                                 showCompletedTasks = false
@@ -72,7 +73,7 @@ struct TasksManagementScreen: View {
                                 showCompletedTasks = false
                                 showNotCompletedTasks = false
                             } label: { Text("All Tasks") }
-                        } label: { Image(systemName: "circle.grid.3x3.fill")}
+                        } label: { Image(systemName: "circle.grid.3x3.fill") }
                     }
                 })
                 .listStyle(PlainListStyle())
@@ -82,12 +83,26 @@ struct TasksManagementScreen: View {
             }
         }
     }
+    private func move(from oldIndex: IndexSet,
+                      to newIndex: Int) {
+        context.perform {
+            var revisedItems: [TaskEntity] = allTasks.map({ $0 })
+            revisedItems.move(fromOffsets: oldIndex,
+                              toOffset: newIndex)
+            for reverseIndex in stride(from: revisedItems.count - 1,
+                                       through: 0,
+                                       by: -1) {
+                revisedItems[reverseIndex].id = String(Int64(exactly: reverseIndex)!)
+            }
+            try? context.save()
+        }
+    }
     private func removeTaskAt(offset: IndexSet) {
         for index in offset {
             let task = allTasks[index]
             context.delete(task)
         }
-        save()
+        saveThis()
     }
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
@@ -99,10 +114,10 @@ struct TasksManagementScreen: View {
             object.setValue(isCompleted,
                             forKey: "completed")
         }
-        save()
+        saveThis()
         completion()
     }
-    private func save() {
+    private func saveThis() {
         do {
             try context.save()
         } catch {
