@@ -70,9 +70,6 @@ extension TasksManagementScreen {
                 NavigationLink { TaskView(retTask: newTask)
                 } label: { EmptyView() }.hidden()
             }
-//        NavigationLink {
-//            TaskView(retTask: newTask)
-//        } label: { TaskCell(retTask: newTask) }
     }
     var addBtn: some View {
         Button { showAddTask = true} label: {
