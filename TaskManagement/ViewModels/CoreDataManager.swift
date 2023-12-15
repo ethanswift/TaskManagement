@@ -28,6 +28,7 @@ final class CoreDataManager {
         newTask.date = task.date?.description
         newTask.completed = task.isComleted
         saveThis()
+        completion()
     }
     func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
@@ -41,5 +42,6 @@ final class CoreDataManager {
                             forKey: "completed")
         }
         saveThis()
+        completion()
     }
 }
