@@ -47,8 +47,9 @@ extension TaskView {
                 .padding(.trailing, 8)
             ZStack {
                 Image(systemName: "circlebadge")
-                    .scaleEffect(x: 2.5, y: 2.5)
+                    .mImg(size: 30)
                 Image(systemName: !thisTask.isComleted ? "" : "checkmark")
+                    .mImg(size: 20)
             }
             .onTapGesture {updateComplete()}
         }
@@ -57,12 +58,9 @@ extension TaskView {
         Button { withAnimation { presentationMode.wrappedValue.dismiss() }
         } label: {
             Image(systemName: "xmark.circle")
-                .resizable()
-                .frame(width: 25,
-                       height: 25)
+                .mImg(size: 25)
                 .padding(.trailing, 50)
         }
-
     }
 
     //MARK: - Core Date & List Helper Methods
