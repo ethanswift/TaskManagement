@@ -55,10 +55,7 @@ struct TaskView: View {
             Spacer()
         }
         .overlay(alignment: .topLeading) {
-            Button {
-                withAnimation {
-                    presentationMode.wrappedValue.dismiss()
-                }
+            Button { withAnimation { presentationMode.wrappedValue.dismiss() }
             } label: {
                 Image(systemName: "xmark.circle")
                     .frame(width: 40,
@@ -69,9 +66,7 @@ struct TaskView: View {
         .navigationTitle("")
         .navigationBarHidden(true)
         .padding(.horizontal, 48)
-        .onAppear {
-            thisTask = retTask
-        }
+        .onAppear { thisTask = retTask }
     }
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,

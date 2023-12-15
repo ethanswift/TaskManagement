@@ -42,9 +42,7 @@ struct AddingTaskScreen: View {
                                        date: newDate,
                                        isComleted: false)
                     self.addTask(task: newTask,
-                                 completion: {
-                        showAddTask = false
-                    })
+                                 completion: { showAddTask = false })
                 } label: {
                     RoundedRectangle(cornerRadius: 10)
                         .frame(width: UIScreen.main.bounds.width / 2,
@@ -60,9 +58,7 @@ struct AddingTaskScreen: View {
         .frame(maxWidth: .infinity)
         .overlay(alignment: .topLeading) {
             Button {
-                withAnimation {
-                    showAddTask = false
-                }
+                withAnimation { showAddTask = false }
             } label: {
                 Image(systemName: "xmark.circle")
                     .frame(width: 60,
@@ -83,7 +79,6 @@ struct AddingTaskScreen: View {
         newTask.completed = task.isComleted
         do {
             try context.save()
-            print(newTask)
             completion()
         } catch {
             fatalError()

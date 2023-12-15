@@ -62,9 +62,7 @@ struct TaskCell: View {
                 }
             }
         }
-        .onAppear {
-            thisTask = retTask
-        }
+        .onAppear { thisTask = retTask }
     }
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
