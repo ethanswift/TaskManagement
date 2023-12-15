@@ -31,36 +31,7 @@ struct TaskCell: View {
                 Spacer()
             }
             Spacer()
-            HStack {
-                Text(retTask.date!.description)
-                    .font(.footnote)
-                    .backgrounded()
-                Spacer()
-                HStack {
-                    Text("Completed:")
-                        .font(.footnote)
-                        .backgrounded()
-                        .padding(.trailing, 10)
-                    ZStack {
-                        Image(systemName: "circlebadge")
-                            .scaleEffect(x: 2.5, y: 2.5)
-                        Image(systemName: !retTask.isComleted ? "" :  "checkmark")
-                    }.padding(.trailing, 10).padding(.bottom, 5)
-                    .onTapGesture {
-                        if thisTask.isComleted {
-                            updateCompletedTask(task: thisTask,
-                                                isCompleted: false) {
-                                thisTask.isComleted = false
-                            }
-                        } else {
-                            updateCompletedTask(task: thisTask,
-                                                isCompleted: true) {
-                                thisTask.isComleted = true
-                            }
-                        }
-                    }
-                }
-            }
+            dateComBars
         }
         .background(content: { Color.blue.opacity(0.2) })
         .onAppear { thisTask = retTask }
@@ -68,6 +39,28 @@ struct TaskCell: View {
 }
 
 extension TaskCell {
+    //MARK: - View Variables & Funcs
+    var dateComBars: some View {
+        HStack {
+            Text(retTask.date!.description)
+                .font(.footnote)
+                .backgrounded()
+            Spacer()
+            HStack {
+                Text("Completed:")
+                    .font(.footnote)
+                    .backgrounded()
+                    .padding(.trailing, 10)
+                ZStack {
+                    Image(systemName: "circlebadge")
+                        .scaleEffect(x: 2.5, y: 2.5)
+                    Image(systemName: !retTask.isComleted ? "" :  "checkmark")
+                }.padding(.trailing, 10).padding(.bottom, 5)
+                .onTapGesture { updateComplete() }
+            }
+        }
+    }
+    //MARK: - Core Date & List Helper Methods
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
                                      completion: @escaping () -> Void) {
@@ -83,6 +76,19 @@ extension TaskCell {
             try context.save()
             completion()
         } catch { fatalError() }
+    }
+    private func updateComplete() {
+        if thisTask.isComleted {
+            updateCompletedTask(task: thisTask,
+                                isCompleted: false) {
+                thisTask.isComleted = false
+            }
+        } else {
+            updateCompletedTask(task: thisTask,
+                                isCompleted: true) {
+                thisTask.isComleted = true
+            }
+        }
     }
 }
 

@@ -28,49 +28,73 @@ struct TaskView: View {
                 Text(retTask.date!.description)
                     .backgrounded()
                 Spacer()
-                HStack {
-                    Text("Completed:")
-                        .backgrounded()
-                        .padding(.trailing, 8)
-                    ZStack {
-                        Image(systemName: "circlebadge")
-                            .scaleEffect(x: 2.5, y: 2.5)
-                        Image(systemName: !thisTask.isComleted ? "" : "checkmark")
-                    }
-                    .onTapGesture {
-                        if thisTask.isComleted {
-                            updateCompletedTask(task: thisTask,
-                                                isCompleted: false) {
-                            }
-                            thisTask.isComleted = false
-                        } else {
-                            updateCompletedTask(task: thisTask,
-                                                isCompleted: true) {
-                            }
-                            thisTask.isComleted = true
-                        }
-                    }
-                }
+                dateComBar
             }
             Spacer()
         }
-        .overlay(alignment: .topLeading) {
-            Button { withAnimation { presentationMode.wrappedValue.dismiss() }
-            } label: {
-                Image(systemName: "xmark.circle")
-                    .frame(width: 40,
-                           height: 40)
-                    .padding(.trailing, 50)
-            }
-        }
+        .overlay(alignment: .topLeading) { exitBtn }
         .navigationTitle("")
         .navigationBarHidden(true)
         .padding(.horizontal, 48)
         .onAppear { thisTask = retTask }
     }
+//    var dateComBar: some View {
+//        HStack {
+//            Text("Completed:")
+//                .backgrounded()
+//                .padding(.trailing, 8)
+//            ZStack {
+//                Image(systemName: "circlebadge")
+//                    .scaleEffect(x: 2.5, y: 2.5)
+//                Image(systemName: !thisTask.isComleted ? "" : "checkmark")
+//            }
+//            .onTapGesture {
+//                updateComplete()
+//            }
+//
+//        }
+//    }
+//    var exitBtn: some View {
+//        Button { withAnimation { presentationMode.wrappedValue.dismiss() }
+//        } label: {
+//            Image(systemName: "xmark.circle")
+//                .frame(width: 40,
+//                       height: 40)
+//                .padding(.trailing, 50)
+//        }
+//    }
 }
 
 extension TaskView {
+    //MARK: - View Variables & Funcs
+    var dateComBar: some View {
+        HStack {
+            Text("Completed:")
+                .backgrounded()
+                .padding(.trailing, 8)
+            ZStack {
+                Image(systemName: "circlebadge")
+                    .scaleEffect(x: 2.5, y: 2.5)
+                Image(systemName: !thisTask.isComleted ? "" : "checkmark")
+            }
+            .onTapGesture {
+                updateComplete()
+            }
+
+        }
+    }
+    var exitBtn: some View {
+        Button { withAnimation { presentationMode.wrappedValue.dismiss() }
+        } label: {
+            Image(systemName: "xmark.circle")
+                .frame(width: 40,
+                       height: 40)
+                .padding(.trailing, 50)
+        }
+
+    }
+
+    //MARK: - Core Date & List Helper Methods
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
                                      completion: @escaping () -> Void) {
@@ -86,6 +110,19 @@ extension TaskView {
             try context.save()
             completion()
         } catch { fatalError() }
+    }
+    private func updateComplete() {
+        if thisTask.isComleted {
+            updateCompletedTask(task: thisTask,
+                                isCompleted: false) {
+            }
+            thisTask.isComleted = false
+        } else {
+            updateCompletedTask(task: thisTask,
+                                isCompleted: true) {
+            }
+            thisTask.isComleted = true
+        }
     }
 }
 

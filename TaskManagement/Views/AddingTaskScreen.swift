@@ -19,59 +19,54 @@ struct AddingTaskScreen: View {
                     .font(.title)
                     .padding(.top, 60)
                 Spacer()
-                TextField("Title", text: $taskName)
+                TextField("Title",
+                          text: $taskName)
                     .padding(.horizontal)
-                    .frame(width: UIScreen.main.bounds.width / 2,
+                    .frame(width: Cons.sW / 2,
                            height: 60)
                     .backgrounded()
                 TextField("Description",
                           text: $taskTitle)
                     .padding(.horizontal)
-                    .frame(width: UIScreen.main.bounds.width / 2,
+                    .frame(width: Cons.sW / 2,
                            height: 60)
                     .backgrounded()
                     .padding(.top, 36)
                 Spacer()
-                Button {
-                    let dateformater = DateFormatter()
-                    dateformater.dateStyle = .short
-                    let newDate = dateformater.string(from: Date())
-                    let newTask = Task(id: UUID().uuidString,
-                                       name: taskName,
-                                       title: taskTitle,
-                                       date: newDate,
-                                       isComleted: false)
-                    self.addTask(task: newTask,
-                                 completion: { showAddTask = false })
-                } label: {
-                    RoundedRectangle(cornerRadius: 10)
-                        .frame(width: UIScreen.main.bounds.width / 2,
-                               height: 50)
-                        .overlay(alignment: .center) {
-                            Text("Add New Task")
-                                .foregroundColor(.white)
-                        }
-                }
+                Button { addNewTask()
+                } label: { addNewTaskBtn }
                 Spacer()
             }
         }
         .frame(maxWidth: .infinity)
-        .overlay(alignment: .topLeading) {
-            Button {
-                withAnimation { showAddTask = false }
-            } label: {
-                Image(systemName: "xmark.circle")
-                    .frame(width: 60,
-                           height: 60)
-                    .padding(.leading, 30)
-                    .padding(.top, 30)
-            }
-        }
+        .overlay(alignment: .topLeading) { exitBtn }
         .ignoresSafeArea(.all)
     }
 }
 
 extension AddingTaskScreen {
+    //MARK: - View Variables & Funcs
+    var addNewTaskBtn: some View {
+        RoundedRectangle(cornerRadius: 10)
+            .frame(width: UIScreen.main.bounds.width / 2,
+                   height: 50)
+            .overlay(alignment: .center) {
+                Text("Add New Task")
+                    .foregroundColor(.white)
+            }
+    }
+    var exitBtn: some View {
+        Button {
+            withAnimation { showAddTask = false }
+        } label: {
+            Image(systemName: "xmark.circle")
+                .frame(width: 60,
+                       height: 60)
+                .padding(.leading, 30)
+                .padding(.top, 30)
+        }
+    }
+    //MARK: - Core Date & List Helper Methods
     private func addTask(task: Task,
                          completion: @escaping () -> Void) {
         let newTask = TaskEntity(context: context)
@@ -84,6 +79,18 @@ extension AddingTaskScreen {
             try context.save()
             completion()
         } catch { fatalError() }
+    }
+    private func addNewTask() {
+        let dateformater = DateFormatter()
+        dateformater.dateStyle = .short
+        let newDate = dateformater.string(from: Date())
+        let newTask = Task(id: UUID().uuidString,
+                           name: taskName,
+                           title: taskTitle,
+                           date: newDate,
+                           isComleted: false)
+        self.addTask(task: newTask,
+                     completion: { showAddTask = false })
     }
 }
 

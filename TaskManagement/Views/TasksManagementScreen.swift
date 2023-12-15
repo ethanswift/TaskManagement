@@ -26,27 +26,21 @@ struct TasksManagementScreen: View {
                                                title: retTask.title,
                                                date: retTask.date,
                                                isComleted: retTask.completed)
-                            NavigationLink {
-                                TaskView(retTask: newTask)
-                            } label: { TaskCell(retTask: newTask) }
+                            navigationLinks(newTask: newTask)
                         } else if showNotCompletedTasks && !retTask.completed {
                             let newTask = Task(id: retTask.id!,
                                                name: retTask.name,
                                                title: retTask.title,
                                                date: retTask.date,
                                                isComleted: retTask.completed)
-                            NavigationLink {
-                                TaskView(retTask: newTask)
-                            } label: { TaskCell(retTask: newTask) }
+                            navigationLinks(newTask: newTask)
                         } else if !showCompletedTasks && !showNotCompletedTasks {
                             let newTask = Task(id: retTask.id!,
                                                name: retTask.name,
                                                title: retTask.title,
                                                date: retTask.date,
                                                isComleted: retTask.completed)
-                            NavigationLink {
-                                TaskView(retTask: newTask)
-                            } label: { TaskCell(retTask: newTask) }
+                            navigationLinks(newTask: newTask)
                         }
                     }.onDelete(perform: removeTaskAt)
                         .onMove(perform: move)
@@ -54,27 +48,8 @@ struct TasksManagementScreen: View {
                 .navigationBarTitle("To Do Tasks")
                 .listStyle(.plain)
                 .toolbar(content: {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button { showAddTask = true} label: {
-                            Image(systemName: "plus.circle")
-                        }
-                    }
-                    ToolbarItem(placement: .automatic) {
-                        Menu {
-                            Button {
-                                showCompletedTasks = true
-                                showNotCompletedTasks = false
-                            } label: { Text("Completed Tasks") }
-                            Button {
-                                showNotCompletedTasks = true
-                                showCompletedTasks = false
-                            } label: { Text("Uncompleted Tasks") }
-                            Button {
-                                showCompletedTasks = false
-                                showNotCompletedTasks = false
-                            } label: { Text("All Tasks") }
-                        } label: { Image(systemName: "line.3.horizontal.decrease") }
-                    }
+                    ToolbarItem(placement: .navigationBarTrailing) { addBtn }
+                    ToolbarItem(placement: .automatic) { menu }
                 })
                 .listStyle(PlainListStyle())
                 .fullScreenCover(isPresented: $showAddTask) {
@@ -86,6 +61,34 @@ struct TasksManagementScreen: View {
 }
 
 extension TasksManagementScreen {
+    //MARK: - View Variables & Funcs
+    private func navigationLinks(newTask: Task) -> some View {
+        NavigationLink {
+            TaskView(retTask: newTask)
+        } label: { TaskCell(retTask: newTask) }
+    }
+    var addBtn: some View {
+        Button { showAddTask = true} label: {
+            Image(systemName: "plus.circle")
+        }
+    }
+    var menu: some View {
+        Menu {
+            Button {
+                showCompletedTasks = true
+                showNotCompletedTasks = false
+            } label: { Text("Completed Tasks") }
+            Button {
+                showNotCompletedTasks = true
+                showCompletedTasks = false
+            } label: { Text("Uncompleted Tasks") }
+            Button {
+                showCompletedTasks = false
+                showNotCompletedTasks = false
+            } label: { Text("All Tasks") }
+        } label: { Image(systemName: "line.3.horizontal.decrease") }
+    }
+    //MARK: - Core Date & List Helper Methods
     private func move(from oldIndex: IndexSet,
                       to newIndex: Int) {
         context.perform {
