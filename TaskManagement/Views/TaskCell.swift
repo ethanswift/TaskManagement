@@ -61,30 +61,15 @@ extension TaskCell {
         }
     }
     //MARK: - Core Date & List Helper Methods
-    private func updateCompletedTask(task: Task,
-                                     isCompleted: Bool,
-                                     completion: @escaping () -> Void) {
-        let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")
-        fetchrequest.predicate = NSPredicate(format: "id == %@",
-                                             task.id)
-        if let results = try? context.fetch(fetchrequest),
-            let object = results.first as? NSManagedObject {
-            object.setValue(isCompleted,
-                            forKey: "completed")
-        }
-        do {
-            try context.save()
-            completion()
-        } catch { fatalError() }
-    }
     private func updateComplete() {
+        let cdMng = CoreDataManager(context: context)
         if thisTask.isComleted {
-            updateCompletedTask(task: thisTask,
+            cdMng.updateCompletedTask(task: thisTask,
                                 isCompleted: false) {
                 thisTask.isComleted = false
             }
         } else {
-            updateCompletedTask(task: thisTask,
+            cdMng.updateCompletedTask(task: thisTask,
                                 isCompleted: true) {
                 thisTask.isComleted = true
             }

@@ -108,12 +108,8 @@ extension TasksManagementScreen {
             let task = allTasks[index]
             context.delete(task)
         }
-        saveThis()
-    }
-    private func saveThis() {
-        do {
-            try context.save()
-        } catch { fatalError() }
+        let cdMng = CoreDataManager(context: context)
+        cdMng.saveThis()
     }
 }
 

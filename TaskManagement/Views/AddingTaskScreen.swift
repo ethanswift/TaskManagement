@@ -67,19 +67,6 @@ extension AddingTaskScreen {
         }
     }
     //MARK: - Core Date & List Helper Methods
-    private func addTask(task: Task,
-                         completion: @escaping () -> Void) {
-        let newTask = TaskEntity(context: context)
-        newTask.id = UUID().uuidString
-        newTask.name = task.name
-        newTask.title = task.title
-        newTask.date = task.date?.description
-        newTask.completed = task.isComleted
-        do {
-            try context.save()
-            completion()
-        } catch { fatalError() }
-    }
     private func addNewTask() {
         let dateformater = DateFormatter()
         dateformater.dateStyle = .short
@@ -89,7 +76,8 @@ extension AddingTaskScreen {
                            title: taskTitle,
                            date: newDate,
                            isComleted: false)
-        self.addTask(task: newTask,
+        let cdMng = CoreDataManager(context: context)
+        cdMng.addTask(task: newTask,
                      completion: { showAddTask = false })
     }
 }
