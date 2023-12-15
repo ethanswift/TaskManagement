@@ -48,6 +48,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C0539DF52B2C1A450028DC83 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				C0965A2A2B2AEF83009BCE43 /* TaskManagementApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
 		C0965A1E2B2AEF83009BCE43 = {
 			isa = PBXGroup;
 			children = (
@@ -67,7 +75,7 @@
 		C0965A292B2AEF83009BCE43 /* TaskManagement */ = {
 			isa = PBXGroup;
 			children = (
-				C0965A2A2B2AEF83009BCE43 /* TaskManagementApp.swift */,
+				C0539DF52B2C1A450028DC83 /* App */,
 				C0EEC3872B2B7B46006FD585 /* Views */,
 				C0EEC3862B2B7B13006FD585 /* Extensions&Helpers */,
 				C0EEC3882B2B7B55006FD585 /* Models */,
