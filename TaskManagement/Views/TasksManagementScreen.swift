@@ -11,7 +11,8 @@ import CoreData
 struct TasksManagementScreen: View {
     @Environment(\.managedObjectContext) var context
     @FetchRequest(entity: TaskEntity.entity(),
-                  sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false)]) private var allTasks: FetchedResults<TaskEntity>
+                  sortDescriptors: [NSSortDescriptor(keyPath: \TaskEntity.date, ascending: false),
+                                    NSSortDescriptor(keyPath: \TaskEntity.id, ascending: true)]) private var allTasks: FetchedResults<TaskEntity>
     @State private var showAddTask: Bool = false
     @State private var showCompletedTasks: Bool = false
     @State private var showNotCompletedTasks: Bool = false
@@ -97,17 +98,22 @@ extension TasksManagementScreen {
     //MARK: - Core Date & List Helper Methods
     private func move(from oldIndex: IndexSet,
                       to newIndex: Int) {
-        context.perform {
+//        context.perform {
             var revisedItems: [TaskEntity] = allTasks.map({ $0 })
+        print(revisedItems)
             revisedItems.move(fromOffsets: oldIndex,
                               toOffset: newIndex)
+        print("new", revisedItems)
             for reverseIndex in stride(from: revisedItems.count - 1,
                                        through: 0,
                                        by: -1) {
-                revisedItems[reverseIndex].id = String(Int64(exactly: reverseIndex)!)
+                revisedItems[reverseIndex].id = String(Int16(exactly: reverseIndex)!)
+                print(revisedItems[reverseIndex].id)
+                let cdMng = CoreDataManager(context: context)
+                cdMng.saveThis()
             }
-            try? context.save()
-        }
+//            try? context.save()
+//        }
     }
     private func removeTaskAt(offset: IndexSet) {
         for index in offset {
