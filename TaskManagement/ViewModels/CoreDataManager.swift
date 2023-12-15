@@ -11,7 +11,6 @@ import UIKit
 
 final class CoreDataManager {
     var context: NSManagedObjectContext
-//    static let shared = CoreDataManager()
     init(context: NSManagedObjectContext) {
         self.context = context
     }
@@ -29,10 +28,6 @@ final class CoreDataManager {
         newTask.date = task.date?.description
         newTask.completed = task.isComleted
         saveThis()
-//        do {
-//            try context.save()
-//            completion()
-//        } catch { fatalError() }
     }
     func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
@@ -46,38 +41,5 @@ final class CoreDataManager {
                             forKey: "completed")
         }
         saveThis()
-//        do {
-//            try context.save()
-//            completion()
-//        } catch { fatalError() }
     }
-
 }
-
-//class CoreDataManager: ObservableObject {
-//    @Published var tasks: [Task] = []
-//    static let sharedManager: CoreDataManager = CoreDataManager()
-//    private init() {}
-//    lazy var persistentContainer: NSPersistentContainer = {
-//        let container = NSPersistentContainer(name: "TaskManagement")
-//        container.loadPersistentStores { _, error in
-//            if let error = error {
-//                fatalError("Unable to load persistent store")
-//            }
-//        }
-//        return container
-//    }()
-//    func saveContext() {
-//        let context = CoreDataManager.sharedManager.persistentContainer.viewContext
-//        if context.hasChanges {
-//            do {
-//                try context.save()
-//            } catch let error as NSError {
-//                print("Context didn't load")
-//                print(error)
-//                print(error.userInfo)
-//                fatalError()
-//            }
-//        }
-//    }
-//}
