@@ -27,7 +27,7 @@ struct TaskView: View {
             Spacer()
         }
         .bgwithColor(color: .blue)
-        .overlay(alignment: .topLeading) { exitBtn }
+        .overlay(alignment: .topLeading) { exitBtn.offset(x: 20, y: 20) }
         .navigationTitle("")
         .navigationBarHidden(true)
         .padding(.horizontal, 24)
@@ -41,8 +41,7 @@ extension TaskView {
         Button { withAnimation { presentationMode.wrappedValue.dismiss() }
         } label: {
             Image(systemName: "xmark.circle")
-                .mImg(size: 25)
-                .padding(.trailing, 50)
+                .mImg(size: 30)
         }
     }
 }
