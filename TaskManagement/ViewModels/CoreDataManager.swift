@@ -19,7 +19,21 @@ final class CoreDataManager {
             try context.save()
         } catch { fatalError() }
     }
-    func addTask(task: Task,
+    func addNewTask(taskName: String, taskTitle: String, completion: @escaping () -> Void) {
+        let dateformater = DateFormatter()
+        dateformater.dateStyle = .short
+        let newDate = dateformater.string(from: Date())
+        let newTask = Task(id: UUID().uuidString,
+                           name: taskName,
+                           title: taskTitle,
+                           date: newDate,
+                           isComleted: false)
+//        let cdMng = CoreDataManager(context: context)
+        addTask(task: newTask,
+                     completion: {})
+        completion()
+    }
+    private func addTask(task: Task,
                          completion: @escaping () -> Void) {
         let newTask = TaskEntity(context: context)
         newTask.id = UUID().uuidString
@@ -30,7 +44,15 @@ final class CoreDataManager {
         saveThis()
         completion()
     }
-    func updateCompletedTask(task: Task,
+    func updateComlete(thisTask: Task, completion: @escaping () -> Void) {
+        let cdMng = CoreDataManager(context: context)
+        cdMng.updateCompletedTask(task: thisTask,
+                                  isCompleted: !thisTask.isComleted) {
+            completion()
+        }
+
+    }
+    private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,
                                      completion: @escaping () -> Void) {
         let fetchrequest = NSFetchRequest<NSFetchRequestResult>(entityName: "TaskEntity")

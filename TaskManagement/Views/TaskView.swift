@@ -16,66 +16,32 @@ struct TaskView: View {
     var body: some View {
         VStack {
             Spacer()
-            Text(retTask.name!)
-                .mFont(font: .title2, nLine: 1)
+            LeftAlignedText(pad: 32, text: retTask.name, font: .headline, nLine: 1)
+                .frame(height: 100)
+            LeftAlignedText(pad: 32, text: retTask.title, font: .title3, nLine: 3)
+                .frame(height: Cons.sH / 3)
+                .bgwithColor(color: .green)
             Spacer()
-            Text(retTask.title!)
-                .mFont(font: .body, nLine: 3)
-            Spacer()
-            HStack {
-                Text(retTask.date!.description)
-                    .mFont(font: .footnote, nLine: 1)
-                Spacer()
-                dateComBar
-            }
+            DateCompletedBars(retTask: retTask, thisTask: $thisTask)
             Spacer()
         }
+        .bgwithColor(color: .blue)
         .overlay(alignment: .topLeading) { exitBtn }
         .navigationTitle("")
         .navigationBarHidden(true)
-        .padding(.horizontal, 48)
+        .padding(.horizontal, 24)
         .onAppear { thisTask = retTask }
     }
 }
 
 extension TaskView {
     //MARK: - View Variables & Funcs
-    var dateComBar: some View {
-        HStack {
-            Text("Completed:")
-                .mFont(font: .footnote, nLine: 1)
-                .padding(.trailing, 8)
-            ZStack {
-                Image(systemName: "circlebadge")
-                    .mImg(size: 30)
-                Image(systemName: !thisTask.isComleted ? "" : "checkmark")
-                    .mImg(size: 20)
-            }
-            .onTapGesture {updateComplete()}
-        }
-    }
     var exitBtn: some View {
         Button { withAnimation { presentationMode.wrappedValue.dismiss() }
         } label: {
             Image(systemName: "xmark.circle")
                 .mImg(size: 25)
                 .padding(.trailing, 50)
-        }
-    }
-
-    //MARK: - Core Date & List Helper Methods
-    private func updateComplete() {
-        let cdMng = CoreDataManager(context: context)
-        if thisTask.isComleted {
-            cdMng.updateCompletedTask(task: thisTask,
-                                isCompleted: false) {
-            }
-            thisTask.isComleted = false
-        } else {
-            cdMng.updateCompletedTask(task: thisTask,
-                                isCompleted: true) {
-            }
-            thisTask.isComleted = true
         }
     }
 }

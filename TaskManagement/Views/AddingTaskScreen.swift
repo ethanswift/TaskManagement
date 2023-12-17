@@ -30,56 +30,20 @@ struct AddingTaskScreen: View {
                     .padding(.top, 36)
                 Spacer()
                 Button {
-                    addNewTask {
+                    let cdMng = CoreDataManager(context: context)
+                    if taskName != "" || taskTitle != "" {
+                        cdMng.addNewTask(taskName: taskName, taskTitle: taskTitle) {
+                            showAddTask = false
+                        }
+                    }
                     showAddTask = false
-                }
-                    showAddTask = false
-                } label: { addNewTaskBtn }
+                } label: { AddNewTaskBtn() }
                 Spacer()
             }
         }
         .frame(maxWidth: .infinity)
-        .overlay(alignment: .topLeading) { exitBtn }
+        .overlay(alignment: .topLeading) { ExitBtn(showAddTask: $showAddTask) }
         .ignoresSafeArea(.all)
-    }
-}
-
-extension AddingTaskScreen {
-    //MARK: - View Variables & Funcs
-    var addNewTaskBtn: some View {
-        RoundedRectangle(cornerRadius: 10)
-            .frame(width: Cons.sW / 2,
-                   height: 50)
-            .overlay(alignment: .center) {
-                Text("Add New Task")
-                    .foregroundColor(.white)
-            }
-    }
-    var exitBtn: some View {
-        Button {
-            withAnimation { showAddTask = false }
-        } label: {
-            Image(systemName: "xmark.circle")
-                .mImg(size: 25)
-                .padding(.leading, 30)
-                .padding(.top, 30)
-        }
-    }
-    //MARK: - Core Date & List Helper Methods
-    private func addNewTask(completion: @escaping () -> Void) {
-        let dateformater = DateFormatter()
-        dateformater.dateStyle = .short
-        let newDate = dateformater.string(from: Date())
-        let newTask = Task(id: UUID().uuidString,
-                           name: taskName,
-                           title: taskTitle,
-                           date: newDate,
-                           isComleted: false)
-        let cdMng = CoreDataManager(context: context)
-        cdMng.addTask(task: newTask,
-                     completion: {
-             })
-        completion()
     }
 }
 
