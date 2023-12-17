@@ -51,7 +51,7 @@ struct TasksManagementScreen: View {
                 .listStyle(.plain)
                 .toolbar(content: {
                     ToolbarItem(placement: .navigationBarTrailing) { addBtn }
-                    ToolbarItem(placement: .automatic) { menu }
+                    ToolbarItem(placement: .automatic) { MenuView(showCompletedTasks: $showCompletedTasks, showNotCompletedTasks: $showNotCompletedTasks) }
                 })
                 .listStyle(PlainListStyle())
                 .fullScreenCover(isPresented: $showAddTask) {
@@ -69,29 +69,12 @@ extension TasksManagementScreen {
             .overlay {
                 NavigationLink { TaskView(retTask: newTask)
                 } label: { EmptyView() }.opacity(0.0)
-            }
-            .listRowSeparator(.hidden)
+            }.listRowSeparator(.hidden)
     }
     var addBtn: some View {
         Button { showAddTask = true} label: {
-            Image(systemName: "plus.circle")
+            Image(systemName: "plus.circle").mImg(size: 25)
         }
-    }
-    var menu: some View {
-        Menu {
-            Button {
-                showCompletedTasks = true
-                showNotCompletedTasks = false
-            } label: { Text("Completed Tasks") }
-            Button {
-                showNotCompletedTasks = true
-                showCompletedTasks = false
-            } label: { Text("Uncompleted Tasks") }
-            Button {
-                showCompletedTasks = false
-                showNotCompletedTasks = false
-            } label: { Text("All Tasks") }
-        } label: { Image(systemName: "line.3.horizontal.decrease") }
     }
     //MARK: - Core Date & List Helper Methods
     private func move(from oldIndex: IndexSet,
