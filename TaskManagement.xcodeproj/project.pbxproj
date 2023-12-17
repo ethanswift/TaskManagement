@@ -24,6 +24,8 @@
 		C0965A482B2AF977009BCE43 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0965A472B2AF977009BCE43 /* CoreDataManager.swift */; };
 		C09B579B2B2F553A003E0131 /* LeftAlignedText.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B579A2B2F553A003E0131 /* LeftAlignedText.swift */; };
 		C09B579D2B2F618D003E0131 /* AddNewTaskBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B579C2B2F618D003E0131 /* AddNewTaskBtn.swift */; };
+		C09B579F2B2F61E8003E0131 /* DateCompletedBars.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B579E2B2F61E8003E0131 /* DateCompletedBars.swift */; };
+		C09B57A12B2F622C003E0131 /* ExitBtn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09B57A02B2F622C003E0131 /* ExitBtn.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +47,8 @@
 		C0965A472B2AF977009BCE43 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		C09B579A2B2F553A003E0131 /* LeftAlignedText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeftAlignedText.swift; sourceTree = "<group>"; };
 		C09B579C2B2F618D003E0131 /* AddNewTaskBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewTaskBtn.swift; sourceTree = "<group>"; };
+		C09B579E2B2F61E8003E0131 /* DateCompletedBars.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCompletedBars.swift; sourceTree = "<group>"; };
+		C09B57A02B2F622C003E0131 /* ExitBtn.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExitBtn.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +130,8 @@
 				C09B579A2B2F553A003E0131 /* LeftAlignedText.swift */,
 				C09B579C2B2F618D003E0131 /* AddNewTaskBtn.swift */,
 				C0965A452B2AF7F5009BCE43 /* TaskCell.swift */,
+				C09B57A02B2F622C003E0131 /* ExitBtn.swift */,
+				C09B579E2B2F61E8003E0131 /* DateCompletedBars.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -218,9 +224,11 @@
 			files = (
 				C09B579B2B2F553A003E0131 /* LeftAlignedText.swift in Sources */,
 				C07BB3D82B2B452B00D839B8 /* TaskView.swift in Sources */,
+				C09B57A12B2F622C003E0131 /* ExitBtn.swift in Sources */,
 				C021E1CD2B2C656D002B331E /* Cons.swift in Sources */,
 				C0965A342B2AEF86009BCE43 /* Persistence.swift in Sources */,
 				C07BB3DB2B2B56B700D839B8 /* Extension+View.swift in Sources */,
+				C09B579F2B2F61E8003E0131 /* DateCompletedBars.swift in Sources */,
 				C0965A3E2B2AEF9F009BCE43 /* Task.swift in Sources */,
 				C07BB3DD2B2B58F700D839B8 /* AddingTaskScreen.swift in Sources */,
 				C0965A2B2B2AEF83009BCE43 /* TaskManagementApp.swift in Sources */,

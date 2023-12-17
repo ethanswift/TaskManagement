@@ -16,7 +16,7 @@ struct TaskCell: View {
         VStack {
             LeftAlignedText(pad: 32, text: retTask.name, font: .headline, nLine: 1)
             LeftAlignedText(pad: 32, text: retTask.title, font: .title3, nLine: 1)
-                .bgwithColor(color: .blue)
+                .bgwithColor(color: .blue).padding(.horizontal, 8)
             Spacer()
             DateCompletedBars(retTask: retTask, thisTask: $thisTask)
         }
