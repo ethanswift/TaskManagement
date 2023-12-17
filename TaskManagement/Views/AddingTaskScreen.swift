@@ -41,9 +41,9 @@ struct AddingTaskScreen: View {
                 Spacer()
             }
         }
+        .ignoresSafeArea(.all)
         .frame(maxWidth: .infinity)
         .overlay(alignment: .topLeading) { ExitBtn(showAddTask: $showAddTask) }
-        .ignoresSafeArea(.all)
     }
 }
 

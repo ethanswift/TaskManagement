@@ -15,7 +15,6 @@ struct ExitBtn: View {
             Image(systemName: "xmark.circle")
                 .mImg(size: 25)
                 .padding(.leading, 30)
-                .padding(.top, 30)
         }
     }
 }
