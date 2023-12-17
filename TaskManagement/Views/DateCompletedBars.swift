@@ -22,8 +22,9 @@ struct DateCompletedBars: View {
                     .padding(.trailing, 10)
                 ZStack {
                     Image(systemName: "circlebadge")
-                        .scaleEffect(x: 2.5, y: 2.5)
+                        .mImg(size: 30)
                     Image(systemName: !retTask.isComleted ? "" :  "checkmark")
+                        .mImg(size: 15)
                 }.padding(.trailing, 10).padding(.bottom, 5)
                 .onTapGesture {
                     let cdMng = CoreDataManager(context: context)

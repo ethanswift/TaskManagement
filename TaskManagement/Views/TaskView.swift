@@ -21,7 +21,7 @@ struct TaskView: View {
             LeftAlignedText(pad: 32, text: retTask.title, font: .title3, nLine: 3)
                 .frame(height: Cons.sH / 3)
                 .bgwithColor(color: .green)
-                .padding(.horizontal, 8)
+                .padding(.horizontal, 16)
             Spacer()
             DateCompletedBars(retTask: retTask, thisTask: $thisTask)
             Spacer()
