@@ -28,7 +28,6 @@ final class CoreDataManager {
                            title: taskTitle,
                            date: newDate,
                            isComleted: false)
-//        let cdMng = CoreDataManager(context: context)
         addTask(task: newTask,
                      completion: {})
         completion()
@@ -45,12 +44,10 @@ final class CoreDataManager {
         completion()
     }
     func updateComlete(thisTask: Task, completion: @escaping () -> Void) {
-        let cdMng = CoreDataManager(context: context)
-        cdMng.updateCompletedTask(task: thisTask,
+        self.updateCompletedTask(task: thisTask,
                                   isCompleted: !thisTask.isComleted) {
             completion()
         }
-
     }
     private func updateCompletedTask(task: Task,
                                      isCompleted: Bool,

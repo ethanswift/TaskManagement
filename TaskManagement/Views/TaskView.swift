@@ -22,7 +22,7 @@ struct TaskView: View {
                 .frame(height: Cons.sH / 3)
                 .bgwithColor(color: .green)
                 .padding(.horizontal, 16)
-            Spacer()
+//            Spacer()
             DateCompletedBars(retTask: retTask, thisTask: $thisTask)
             Spacer()
         }
